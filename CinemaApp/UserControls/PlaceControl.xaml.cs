@@ -25,7 +25,9 @@ namespace CinemaApp.UserControls
         private Place _place;
         private Ticket _ticket;
         public delegate void PlaceSelectedEventHandler(Place place, bool isBusy);
+        public delegate void PlaceClickedEventHandler(Place place);
         public event PlaceSelectedEventHandler PlaceSelected;
+        public event PlaceClickedEventHandler PlaceClicked;
         public PlaceControl(Place place, Session session)
         {
             InitializeComponent();
@@ -53,5 +55,19 @@ namespace CinemaApp.UserControls
         {
             GridSelection.Visibility = Visibility.Collapsed;
         }
+
+        private void ImgPlace_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(_ticket != null)
+            {
+                _ = MessageBox.Show("Это место занято!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                PlaceClicked?.Invoke(_place);
+            }
+        }
+
+
     }
 }

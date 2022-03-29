@@ -70,6 +70,7 @@
     </ApplicationDefinition>
     <Compile Include="Entities\MoviePartial.cs" />
     <Compile Include="Entities\SessionPartial.cs" />
+    <Compile Include="Entities\TicketPartial.cs" />
     <Compile Include="Pages\ManagerPages\MoviesPage.xaml.cs">
       <DependentUpon>MoviesPage.xaml</DependentUpon>
     </Compile>
@@ -82,13 +83,12 @@
     <Compile Include="Windows\PlacesWindow.xaml.cs">
       <DependentUpon>PlacesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\PrintTicketWindow.xaml.cs">
+      <DependentUpon>PrintTicketWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\UserEditorWindow.xaml.cs">
       <DependentUpon>UserEditorWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Pages\AccountantPages\MenuPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\AdminPages\MenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -181,9 +181,6 @@
       <DependentUpon>Base.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\UserPartial.cs" />
-    <Compile Include="Pages\AccountantPages\MenuPage.xaml.cs">
-      <DependentUpon>MenuPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\AdminPages\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
@@ -204,6 +201,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\PlacesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PrintTicketWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -251,6 +252,7 @@
     <None Include="Resources\place_free.png" />
     <None Include="Resources\place_busy.png" />
     <Resource Include="Assets\no_image.jpg" />
+    <Resource Include="Assets\ticket_template.jpg" />
     <Content Include="Entities\Base.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Base.Context.cs</LastGenOutput>

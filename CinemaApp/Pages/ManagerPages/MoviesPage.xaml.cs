@@ -54,6 +54,7 @@ namespace CinemaApp.Pages.ManagerPages
             if(LViewMovies.SelectedItem is Movie movie)
             {
                 NavigationService.Navigate(new SessionsPage(movie));
+                LViewMovies.SelectedItem = null;
             }
         }
     }

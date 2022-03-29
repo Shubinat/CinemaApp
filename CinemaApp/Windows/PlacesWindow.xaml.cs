@@ -26,14 +26,22 @@ namespace CinemaApp.Windows
         {
             InitializeComponent();
             _session = session;
+            GenerateHall(session);
+
+        }
+
+        private void GenerateHall(Session session)
+        {
+            Hall.Children.Clear();
             foreach (var row in session.Hall.Places.GroupBy(x => x.RowNumber))
             {
-                StackPanel stackPanel = new StackPanel() { Orientation = Orientation.Horizontal};
-                stackPanel.Children.Add(new TextBlock() { 
-                    Text = "Ряд № " + row.Key.ToString(), 
-                    Foreground = Brushes.White, 
-                    VerticalAlignment = VerticalAlignment.Center, 
-                    FontSize = 16, 
+                StackPanel stackPanel = new StackPanel() { Orientation = Orientation.Horizontal };
+                stackPanel.Children.Add(new TextBlock()
+                {
+                    Text = "Ряд № " + row.Key.ToString(),
+                    Foreground = Brushes.White,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontSize = 16,
                     Margin = new Thickness(5),
                     FontWeight = FontWeights.Bold
                 });
@@ -41,12 +49,42 @@ namespace CinemaApp.Windows
                 {
                     PlaceControl element = new PlaceControl(place, session);
                     element.PlaceSelected += Element_PlaceSelected;
+                    element.PlaceClicked += Element_PlaceClicked;
                     stackPanel.Children.Add(element);
                 }
                 Hall.Children.Add(stackPanel);
             }
-
         }
+
+        private void Element_PlaceClicked(Place place)
+        {
+            var charSet = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+            var randNumber = "";
+            do
+            {
+                randNumber = CreateRandNumber(charSet);
+            } while (App.Context.Tickets.ToList().FirstOrDefault(x => x.Number == randNumber) != null);
+            var ticket = new Ticket()
+            {
+                Number = randNumber,
+                Session = _session,
+                RealeseDate = DateTime.Now,
+                TicketStatu = App.Context.TicketStatus.Find(1),
+                Place = place
+            };
+            new PrintTicketWindow(ticket).ShowDialog();
+            GenerateHall(_session);
+        }
+
+        private string CreateRandNumber(string charSet)
+        {
+            Random random = new Random();
+            var result = "";
+            for (int i = 0; i < 8; i++)
+                result += charSet[random.Next(charSet.Length)];
+            return result;
+        }
+
         private void Element_PlaceSelected(Place place, bool isBusy)
         {
             TBlockInfo.Text = $"Ряд № {place.RowNumber}, Место № {place.PlaceNumber}";

@@ -72,6 +72,7 @@ namespace CinemaApp.Pages.ManagerPages
             if(selectedSession != null)
             {
                 new Windows.PlacesWindow(selectedSession).ShowDialog();
+                LViewSessions.SelectedItem = null;
             }
         }
     }

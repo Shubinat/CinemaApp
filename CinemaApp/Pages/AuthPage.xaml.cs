@@ -53,9 +53,6 @@ namespace CinemaApp.Pages
                         case 2:
                             NavigationService.Navigate(new ManagerPages.MenuPage());
                             break;
-                        case 3:
-                            NavigationService.Navigate(new AccountantPages.MenuPage());
-                            break;
                         default:
                             _ = MessageBox.Show("Для данной роли не предумотрен функционал.", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                             break;
