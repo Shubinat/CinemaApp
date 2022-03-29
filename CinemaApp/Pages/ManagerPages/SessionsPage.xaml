@@ -1,0 +1,48 @@
+﻿<Page x:Class="CinemaApp.Pages.ManagerPages.SessionsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CinemaApp.Pages.ManagerPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Сеансы">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+           <TextBlock Margin="10 5 5 5" VerticalAlignment="Center" Text="Фильм:" FontSize="16" Foreground="White"/>
+           <ComboBox VerticalAlignment="Center" x:Name="CBoxMovies" DisplayMemberPath="Name" SelectionChanged="CBoxMovies_SelectionChanged"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Margin="10 5 5 5" VerticalAlignment="Center" Text="Дата:" FontSize="16" Foreground="White"/>
+            <DatePicker Margin="10 5 10 5" VerticalAlignment="Center" x:Name="DPickerRentalDate"  SelectedDateChanged="DPickerRentalDate_SelectedDateChanged"/>
+        </StackPanel>
+
+        <ListView Margin="10" x:Name="LViewSessions" Grid.Row="1" SelectionMode="Single" SelectionChanged="LViewSessions_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="White" Text="{Binding Time}" FontSize="26" Margin="2"/>
+                        <TextBlock Foreground="Gray"  FontSize="20" Margin="2" Grid.Row="1">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="Hall.Name"/>
+                                    <Binding Path="Movie.Name"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
