@@ -1,0 +1,42 @@
+﻿<Page x:Class="CinemaApp.Pages.AdminPages.FilmsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CinemaApp.Pages.AdminPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Фильмы">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0">
+            <TextBlock Style="{StaticResource TBlockHeader}">Фильмы</TextBlock>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Style="{StaticResource SecondaryTextBlock}">Поиск:</TextBlock>
+                <TextBox x:Name="TBSearch"></TextBox>
+                <TextBlock Style="{StaticResource SecondaryTextBlock}">Фильтрация:</TextBlock>
+                <ComboBox x:Name="CBFilter"></ComboBox>
+            </StackPanel>
+        </StackPanel>
+        <DataGrid x:Name="DGridMovies" Grid.Row="1" Style="{StaticResource DGridTranparent}" SelectionChanged="DGridMovies_SelectionChanged" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Длительность" Binding="{Binding Duration}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Начало проката" Binding="{Binding StartRentalDate}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Конец проката" Binding="{Binding EndRentalDate}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Дистрибьютор" Binding="{Binding Distributor}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Изображение" Binding="{Binding Poster}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+            <Button Content="Редактировать" x:Name="BtnEdit" Click="BtnEdit_Click" IsEnabled="False"/>
+            <Button Content="Удалить" x:Name="BtnDelete" Click="BtnDelete_Click" IsEnabled="False"/>
+            <Button Content="Добавить" x:Name="BtnAdd" Click="BtnAdd_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -45,5 +45,10 @@ namespace CinemaApp.Pages.AdminPages
         {
             NavigationService.Navigate(new UsersPage());
         }
+
+        private void BtnSessions_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new SessionsPage());
+        }
     }
 }
