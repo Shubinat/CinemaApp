@@ -70,7 +70,16 @@
     </ApplicationDefinition>
     <Compile Include="Entities\MoviePartial.cs" />
     <Compile Include="Entities\SessionPartial.cs" />
+<<<<<<< HEAD
     <Compile Include="Entities\TicketPartial.cs" />
+=======
+    <Compile Include="Pages\AdminPages\FilmsPage.xaml.cs">
+      <DependentUpon>FilmsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminPages\SessionsPage.xaml.cs">
+      <DependentUpon>SessionsPage.xaml</DependentUpon>
+    </Compile>
+>>>>>>> 7ac85f6603a942d548dcab2b5683f98375a5f1dd
     <Compile Include="Pages\ManagerPages\MoviesPage.xaml.cs">
       <DependentUpon>MoviesPage.xaml</DependentUpon>
     </Compile>
@@ -80,16 +89,39 @@
     <Compile Include="UserControls\PlaceControl.xaml.cs">
       <DependentUpon>PlaceControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\MovieEditorWindow.xaml.cs">
+      <DependentUpon>MovieEditorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\PlacesWindow.xaml.cs">
       <DependentUpon>PlacesWindow.xaml</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Windows\PrintTicketWindow.xaml.cs">
       <DependentUpon>PrintTicketWindow.xaml</DependentUpon>
+=======
+    <Compile Include="Windows\SessionEditorWindow.xaml.cs">
+      <DependentUpon>SessionEditorWindow.xaml</DependentUpon>
+>>>>>>> 7ac85f6603a942d548dcab2b5683f98375a5f1dd
     </Compile>
     <Compile Include="Windows\UserEditorWindow.xaml.cs">
       <DependentUpon>UserEditorWindow.xaml</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+=======
+    <Page Include="Pages\AccountantPages\MenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminPages\FilmsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+>>>>>>> 7ac85f6603a942d548dcab2b5683f98375a5f1dd
     <Page Include="Pages\AdminPages\MenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminPages\SessionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -200,11 +232,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\MovieEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\PlacesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
     <Page Include="Windows\PrintTicketWindow.xaml">
+=======
+    <Page Include="Windows\SessionEditorWindow.xaml">
+>>>>>>> 7ac85f6603a942d548dcab2b5683f98375a5f1dd
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
