@@ -24,14 +24,18 @@ namespace CinemaApp.Windows
         public SessionEditorWindow(Session session)
         {
             InitializeComponent();
+            CBoxHall.ItemsSource = App.Context.Halls.ToList();
+            CBoxMovie.ItemsSource = App.Context.Movies.ToList();
             if (session!=null)
             {
                 
                 CBoxHall.Text = session.Hall.Name;
                 CBoxMovie.Text = session.Movie.Name;
                 DatePickerSession.SelectedDate = session.DateTime;
-                TBoxAmount.Text = session.Hall.PlacesCount.ToString();
-               
+                TBoxEconom.Text = session.TicketPrices.First(p => p.SectorID == 2).Price.ToString();
+                TBoxSimple.Text = session.TicketPrices.First(p => p.SectorID == 1).Price.ToString();
+                TBoxVIP.Text = session.TicketPrices.First(p => p.SectorID == 3).Price.ToString();
+                TBoxTimeSession.Text = session.Time;
                 _session = session;
             }
             
@@ -45,13 +49,48 @@ namespace CinemaApp.Windows
                 {
                     _session = new Session()
                     {
-                   
+                        HallID = (CBoxHall.SelectedItem as Hall).ID,
+                        MovieID = (CBoxMovie.SelectedItem as Movie).ID,
+                        DateTime = DatePickerSession.SelectedDate.Value,
                     };
+                    _session.Time = TBoxTimeSession.Text;
                     App.Context.Sessions.Add(_session);
+                    App.Context.SaveChanges();
+                    var _ticketeconom = new TicketPrice()
+                    {
+                        SessionID = _session.ID,
+                        SectorID = 2,
+                        Price = Convert.ToDecimal(TBoxEconom.Text),
+                    };
+                    App.Context.TicketPrices.Add(_ticketeconom);
+                    App.Context.SaveChanges();
+                    var _tickesimple = new TicketPrice()
+                    {
+                        SessionID = _session.ID,
+                        SectorID = 1,
+                        Price = Convert.ToDecimal(TBoxSimple.Text),
+                    };
+                    App.Context.TicketPrices.Add(_tickesimple);
+                    App.Context.SaveChanges();
+                    var _ticketvip = new TicketPrice()
+                    {
+                        SessionID = _session.ID,
+                        SectorID = 3,
+                        Price = Convert.ToDecimal(TBoxVIP.Text),
+                    };
+                    App.Context.TicketPrices.Add(_ticketvip);
+                    App.Context.SaveChanges();
                 }
                 else
                 {
-           
+                    _session.HallID = (CBoxHall.SelectedItem as Hall).ID;
+                    _session.MovieID = (CBoxMovie.SelectedItem as Movie).ID;
+                    _session.DateTime = DatePickerSession.SelectedDate.Value;
+                    _session.Time = TBoxTimeSession.Text;
+                    _session.TicketPrices.First(p => p.SectorID == 2).Price = Convert.ToDecimal(TBoxEconom.Text);
+                    _session.TicketPrices.First(p => p.SectorID == 1).Price = Convert.ToDecimal(TBoxSimple.Text);
+                    _session.TicketPrices.First(p => p.SectorID == 3).Price = Convert.ToDecimal(TBoxVIP.Text);
+
                 }
                 App.Context.SaveChanges();
                 DialogResult = true;

@@ -26,11 +26,17 @@ namespace CinemaApp.Pages.AdminPages
         public SessionsPage()
         {
             InitializeComponent();
+            List<Movie> movies = App.Context.Movies.ToList();
+            movies.Insert(0, new Movie { Name = "Все фильмы" });
+            CBFilter.ItemsSource = movies;
+            CBFilter.SelectedIndex = 0;
         }
 
         private void DGridSessions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            var enabled = selectedSession != null;
+            BtnEdit.IsEnabled = enabled;
+            BtnDelete.IsEnabled = enabled;
         }
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
@@ -49,12 +55,30 @@ namespace CinemaApp.Pages.AdminPages
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            Window editor = new Windows.SessionEditorWindow(null);
+            if (editor.ShowDialog() == true)
+            {
+                UpdateGrid();
+            }
         }
         private void UpdateGrid()
         {
-            List<Session> users = App.Context.Sessions.ToList();
+            List<Session> sessions = App.Context.Sessions.ToList();
+            if(CBFilter.SelectedIndex != 0)
+                sessions = sessions.Where(session => session.Movie == CBFilter.SelectedItem).ToList();
+            if (!string.IsNullOrWhiteSpace(TBSearch.Text))
+                sessions = sessions.Where(session => session.Movie.Name.ToLower().Contains(TBSearch.Text.ToLower())).ToList();
+            DGridSessions.ItemsSource = sessions;
+        }
 
+        private void TBSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateGrid();
+        }
+
+        private void CBFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateGrid();
         }
     }
 }

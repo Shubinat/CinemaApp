@@ -15,8 +15,8 @@
             <Image Source="/Assets/ticket_template.jpg" />
             <TextBlock Text="{Binding Session.Movie.Name}" FontSize="32" x:Name="TBlockMovie"
                        HorizontalAlignment="Left" VerticalAlignment="Top" Margin="188.5,25,0,0" Foreground="#FF363533" FontFamily="Arial" />
-            <TextBlock Text="{Binding Session.Time}" FontSize="32" x:Name="TBlockTime"
-                       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="335,25,0,0" Foreground="#FF363533" FontFamily="Arial" />
+            <TextBlock Text="{Binding Session.Time}" FontSize="20" x:Name="TBlockTime"
+                       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="267,69,0,0" Foreground="#FF363533" FontFamily="Arial" />
             <TextBlock Text="{Binding Number}" FontSize="20" x:Name="TBlockNumber"
                        HorizontalAlignment="Left" VerticalAlignment="Top" Margin="210,94,0,0" Foreground="#FF1D1B1B" FontFamily="Arial"/>
             <TextBlock Text="{Binding Place.RowNumber}" FontSize="20"  x:Name="TBlockRow"

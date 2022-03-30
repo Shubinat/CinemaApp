@@ -18,15 +18,15 @@
             <TextBlock Style="{StaticResource TBlockHeader}">Сеансы</TextBlock>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource SecondaryTextBlock}">Поиск:</TextBlock>
-                <TextBox x:Name="TBSearch"></TextBox>
+                <TextBox x:Name="TBSearch" TextChanged="TBSearch_TextChanged"></TextBox>
                 <TextBlock Style="{StaticResource SecondaryTextBlock}">Фильтрация:</TextBlock>
-                <ComboBox x:Name="CBFilter"></ComboBox>
+                <ComboBox x:Name="CBFilter" SelectionChanged="CBFilter_SelectionChanged" DisplayMemberPath="Name"></ComboBox>
             </StackPanel>
         </StackPanel>
         <DataGrid x:Name="DGridSessions" Grid.Row="1" Style="{StaticResource DGridTranparent}" SelectionChanged="DGridSessions_SelectionChanged" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Кинозал" Binding="{Binding Hall.Name}"></DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="Дата и время" Binding="{Binding Datetime}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Дата и время" Binding="{Binding Time}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Фильм" Binding="{Binding Movie.Name}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

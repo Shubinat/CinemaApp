@@ -13,7 +13,7 @@
             <TextBlock Style="{StaticResource TBlockHeader}" x:Name="TBlockHello" Width="350" TextWrapping="Wrap" TextAlignment="Center"/>
             <Button Content="Список фильмов" Width="250" x:Name="BtnMovies" Click="BtnMovies_Click"/>
             <Button Content="Список сеансов" Width="250" x:Name="BtnSessions" Click="BtnSessions_Click"/>
-            <Button Content="Список билетов" Width="250"/>
+            <Button Content="Список билетов" Width="250" x:Name="BtnTickets" Click="BtnTickets_Click"/>
         </StackPanel>
     </Grid>
 </Page>
