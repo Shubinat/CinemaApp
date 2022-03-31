@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaApp.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace CinemaApp.Pages.AdminPages
     /// </summary>
     public partial class FilmsPage : Page
     {
+        private Movie selectedMovie => DGridMovies.SelectedItem as Movie;
+
         public FilmsPage()
         {
             InitializeComponent();
@@ -32,7 +35,11 @@ namespace CinemaApp.Pages.AdminPages
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            Window editor = new Windows.MovieEditorWindow(selectedMovie);
+            if (editor.ShowDialog() == true)
+            {
+                UpdateGrid();
+            }
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
@@ -42,7 +49,15 @@ namespace CinemaApp.Pages.AdminPages
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            Window editor = new Windows.MovieEditorWindow(null);
+            if (editor.ShowDialog() == true)
+            {
+                UpdateGrid();
+            }
+        }
+        private void UpdateGrid()
+        {
+            //
         }
     }
 }

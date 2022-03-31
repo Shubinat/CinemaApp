@@ -1,6 +1,8 @@
-﻿using Microsoft.Win32;
+﻿using CinemaApp.Entities;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +22,9 @@ namespace CinemaApp.Windows
     /// </summary>
     public partial class MovieEditorWindow : Window
     {
-        public MovieEditorWindow()
+        private Movie _movie;
+        private byte[] _img;
+        public MovieEditorWindow(Movie movie)
         {
             InitializeComponent();
             if (ImgPoster!=null)
@@ -38,6 +42,7 @@ namespace CinemaApp.Windows
                 try
                 {
                     ImgPoster.Source = new BitmapImage(new Uri(ofd.FileName));
+                    _img = File.ReadAllBytes(ofd.FileName);
                 }
                 catch
                 {
@@ -57,6 +62,8 @@ namespace CinemaApp.Windows
                 try
                 {
                     ImgPoster.Source = new BitmapImage(new Uri(ofd.FileName));
+                    _img = File.ReadAllBytes(ofd.FileName);
+
                 }
                 catch
                 {
@@ -68,7 +75,42 @@ namespace CinemaApp.Windows
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (_movie == null)
+                {
+                    _movie = new Movie()
+                    {
+                        Name = TBoxName.Text,
+                        Duration = Convert.ToDouble(TBoxDuration.Text),
+                        StartRentalDate = DatePickerStart.SelectedDate.Value,
+                        EndRentalDate = DatePickerEnd.SelectedDate.Value,
+                        Distributor = TBoxDistributor.Text,
+                        Poster = _img,
+                    };
+                    App.Context.Movies.Add(_movie);
+                    App.Context.SaveChanges();
+                    
+                    
+                }
+                else
+                {
+                    _movie.Name = TBoxName.Text;
+                    _movie.Duration = Convert.ToDouble(TBoxDuration.Text);
+                    _movie.StartRentalDate = DatePickerStart.SelectedDate.Value;
+                    _movie.EndRentalDate = DatePickerEnd.SelectedDate.Value;
+                    _movie.Distributor = TBoxDistributor.Text;
+                    _movie.Poster = _img;
 
+                }
+                App.Context.SaveChanges();
+                DialogResult = true;
+                Close();
+            }
+            catch
+            {
+                _ = MessageBox.Show("Произошла ошибка. Проаерьте правильность заполнения полей.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
