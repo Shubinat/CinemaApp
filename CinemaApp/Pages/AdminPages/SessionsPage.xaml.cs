@@ -50,7 +50,13 @@ namespace CinemaApp.Pages.AdminPages
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MessageBox.Show("Вы действительно хотите удалить данный сеанс?",
+    "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                App.Context.Sessions.Remove(selectedSession);
+                App.Context.SaveChanges();
+                UpdateGrid();
+            }
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)

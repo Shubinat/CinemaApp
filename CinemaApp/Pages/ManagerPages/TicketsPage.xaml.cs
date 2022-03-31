@@ -21,6 +21,8 @@ namespace CinemaApp.Pages.ManagerPages
     /// </summary>
     public partial class TicketsPage : Page
     {
+        private Ticket selectedTicket => DGridTickets.SelectedItem as Ticket;
+
         public TicketsPage()
         {
             InitializeComponent();
@@ -70,12 +72,48 @@ namespace CinemaApp.Pages.ManagerPages
 
         private void DGridTickets_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            var enabled = selectedTicket != null;
+            BtnEdit.IsEnabled = enabled;
+            BtnDelete.IsEnabled = enabled;
         }
 
         private void CBoxStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateGrid();
+        }
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            Window editor = new Windows.TicketEditorWindow(selectedTicket);
+            if (editor.ShowDialog() == true)
+            {
+                UpdateGrid();
+            }
+        }
+
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Вы действительно хотите удалить данный билет?",
+                "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                App.Context.Tickets.Remove(selectedTicket);
+                App.Context.SaveChanges();
+                UpdateGrid();
+            }
+        }
+
+        private void BtnReport_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            Window editor = new Windows.TicketEditorWindow(null);
+            if (editor.ShowDialog() == true)
+            {
+                UpdateGrid();
+            }
         }
     }
 }
