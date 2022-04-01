@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CinemaApp.Pages.ManagerPages
 {
@@ -74,7 +75,6 @@ namespace CinemaApp.Pages.ManagerPages
         {
             var enabled = selectedTicket != null;
             BtnEdit.IsEnabled = enabled;
-            BtnDelete.IsEnabled = enabled;
         }
 
         private void CBoxStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -90,23 +90,6 @@ namespace CinemaApp.Pages.ManagerPages
                 UpdateGrid();
             }
         }
-
-        private void BtnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Вы действительно хотите удалить данный билет?",
-                "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                App.Context.Tickets.Remove(selectedTicket);
-                App.Context.SaveChanges();
-                UpdateGrid();
-            }
-        }
-
-        private void BtnReport_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
             Window editor = new Windows.TicketEditorWindow(null);
@@ -114,6 +97,64 @@ namespace CinemaApp.Pages.ManagerPages
             {
                 UpdateGrid();
             }
+        }
+
+        private void BtnReport_Click(object sender, RoutedEventArgs e)
+        {
+            var list = DGridTickets.ItemsSource as List<Ticket>;
+
+            if (GridEmpty.Visibility != Visibility.Visible)
+            {
+                Excel.Application app = new Excel.Application();
+                Excel.Workbook wb = app.Workbooks.Add();
+                Excel.Worksheet sheet = wb.Worksheets.Add();
+
+                sheet.Cells[1, 1] = "Номер";
+                sheet.Cells[1, 2] = "Фильм";
+                sheet.Cells[1, 3] = "Кинозал";
+                sheet.Cells[1, 4] = "Дата";
+                sheet.Cells[1, 5] = "Время";
+                sheet.Cells[1, 6] = "Цена";
+                sheet.Cells[1, 7] = "Статус";
+
+                Excel.Range headers = sheet.Range[sheet.Cells[1, 1], sheet.Cells[1, 7]];
+                headers.Font.Bold = true;
+
+                int rowIndex = 2;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var ticket = list[i];
+                    sheet.Cells[rowIndex, 1] = ticket.Number;
+                    sheet.Cells[rowIndex, 2] = ticket.Session.Movie.Name;
+                    sheet.Cells[rowIndex, 3] = ticket.Session.Hall.Name;
+                    sheet.Cells[rowIndex, 4] = ticket.Session.Date;
+                    sheet.Cells[rowIndex, 5] = ticket.Session.Time;
+                    sheet.Cells[rowIndex, 6] = ticket.TicketStatu.Name;
+                    sheet.Cells[rowIndex, 7] = ticket.Price;
+                    rowIndex++;
+                }
+                Excel.Range range = sheet.Range[sheet.Cells[rowIndex, 1], sheet.Cells[rowIndex, 6]];
+                range.Merge();
+                range.Value = "ИТОГО:";
+                range.Font.Bold = true;
+                range.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                sheet.Cells[rowIndex, 7] = list.Where(x => x.StatusID == 1).Sum(x => x.Price);
+
+                sheet.UsedRange.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle =
+                    sheet.UsedRange.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle =
+                    sheet.UsedRange.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle =
+                    sheet.UsedRange.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle =
+                    sheet.UsedRange.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle =
+                    sheet.UsedRange.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                sheet.Columns.AutoFit();
+
+                app.Visible = true;
+            }
+            else
+            {
+                _ = MessageBox.Show("Для экспорта нет записей.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }   
         }
     }
 }

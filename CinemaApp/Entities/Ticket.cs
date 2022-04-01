@@ -14,12 +14,6 @@ namespace CinemaApp.Entities
     
     public partial class Ticket
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ticket()
-        {
-            this.TicketHistories = new HashSet<TicketHistory>();
-        }
-    
         public string Number { get; set; }
         public System.DateTime RealeseDate { get; set; }
         public int SessionID { get; set; }
@@ -29,7 +23,5 @@ namespace CinemaApp.Entities
         public virtual Place Place { get; set; }
         public virtual Session Session { get; set; }
         public virtual TicketStatu TicketStatu { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TicketHistory> TicketHistories { get; set; }
     }
 }

@@ -32,7 +32,15 @@
                 <TextBlock Text="Изображение:" Foreground="White" Margin="5" VerticalAlignment="Center" FontSize="16"/>
                 <Grid>
                     <Button x:Name="BtnImage" Width="100" Height="50"  Content="Выбрать" Click="BtnImage_Click"/>
-                    <Image x:Name="ImgPoster" Width="100" Height="100" MouseDown="ImgPoster_MouseDown"></Image>
+                    <Image x:Name="ImgPoster" Width="100" Height="100" MouseDown="ImgPoster_MouseDown" >
+                        <Image.Source>
+                            <Binding>
+                                <Binding.TargetNullValue>
+                                    <BitmapImage UriSource="/Assets/no_image.jpg"/>
+                                </Binding.TargetNullValue>
+                            </Binding>
+                        </Image.Source>
+                    </Image>
                 </Grid>
             </StackPanel>
             <Button Margin="2" Content="Сохранить" x:Name="BtnSave" Click="BtnSave_Click"/>

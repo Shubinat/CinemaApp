@@ -30,6 +30,9 @@
                 <DataGridTextColumn Width="*" Header="Фильм" Binding="{Binding Movie.Name}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Border Background="#19FFFFFF" x:Name="GridEmpty" BorderThickness="1" BorderBrush="Gray" Grid.Row="1">
+            <TextBlock Text="Нет записей" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Foreground="White"></TextBlock>
+        </Border>
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
             <Button Content="Редактировать" x:Name="BtnEdit" Click="BtnEdit_Click" IsEnabled="False"/>
             <Button Content="Удалить" x:Name="BtnDelete" Click="BtnDelete_Click" IsEnabled="False"/>

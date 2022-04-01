@@ -32,8 +32,6 @@ namespace CinemaApp.Entities
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Session> Sessions { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
-        public virtual DbSet<TicketHistory> TicketHistories { get; set; }
-        public virtual DbSet<TicketOperation> TicketOperations { get; set; }
         public virtual DbSet<TicketPrice> TicketPrices { get; set; }
         public virtual DbSet<TicketStatu> TicketStatus { get; set; }
         public virtual DbSet<User> Users { get; set; }

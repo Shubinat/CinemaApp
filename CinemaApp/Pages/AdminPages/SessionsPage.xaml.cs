@@ -69,11 +69,20 @@ namespace CinemaApp.Pages.AdminPages
         }
         private void UpdateGrid()
         {
+            DGridSessions.Visibility = Visibility.Collapsed;
+            GridEmpty.Visibility = Visibility.Collapsed;
+
             List<Session> sessions = App.Context.Sessions.ToList();
             if(CBFilter.SelectedIndex != 0)
                 sessions = sessions.Where(session => session.Movie == CBFilter.SelectedItem).ToList();
             if (!string.IsNullOrWhiteSpace(TBSearch.Text))
                 sessions = sessions.Where(session => session.Movie.Name.ToLower().Contains(TBSearch.Text.ToLower())).ToList();
+
+            if(sessions.Count > 0)
+                DGridSessions.Visibility = Visibility.Visible;
+            else
+                GridEmpty.Visibility = Visibility.Visible;
+
             DGridSessions.ItemsSource = sessions;
         }
 

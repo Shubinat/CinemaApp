@@ -18,21 +18,41 @@
             <TextBlock Style="{StaticResource TBlockHeader}">Фильмы</TextBlock>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource SecondaryTextBlock}">Поиск:</TextBlock>
-                <TextBox x:Name="TBSearch"></TextBox>
-                <TextBlock Style="{StaticResource SecondaryTextBlock}">Фильтрация:</TextBlock>
-                <ComboBox x:Name="CBFilter"></ComboBox>
+                <TextBox x:Name="TBSearch" TextChanged="TBSearch_TextChanged"></TextBox>
+                <TextBlock Style="{StaticResource SecondaryTextBlock}">Сортировка:</TextBlock>
+                <ComboBox x:Name="CBSort" SelectionChanged="CBSort_SelectionChanged"></ComboBox>
             </StackPanel>
         </StackPanel>
-        <DataGrid x:Name="DGridMovies" Grid.Row="1" Style="{StaticResource DGridTranparent}" SelectionChanged="DGridMovies_SelectionChanged" SelectionMode="Single">
+        <DataGrid x:Name="DGridMovies" Grid.Row="1" Style="{StaticResource DGridTranparent}" SelectionChanged="DGridMovies_SelectionChanged" SelectionMode="Single"
+                  CanUserResizeColumns="False" CanUserSortColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Длительность" Binding="{Binding Duration}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Начало проката" Binding="{Binding StartRentalDate}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Конец проката" Binding="{Binding EndRentalDate}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Дистрибьютор" Binding="{Binding Distributor}"></DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="Изображение" Binding="{Binding Poster}"></DataGridTextColumn>
+                <DataGridTemplateColumn Width="100" Header="Изображение">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image>
+                                <Image.Source>
+                                    <Binding Path="Poster">
+                                        <Binding.TargetNullValue>
+                                            <BitmapImage UriSource="/Assets/no_image.jpg"/>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Border Background="#19FFFFFF" x:Name="GridEmpty" BorderThickness="1" BorderBrush="Gray" Grid.Row="1">
+            <TextBlock Text="Нет записей" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Foreground="White"></TextBlock>
+        </Border>
+        
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
             <Button Content="Редактировать" x:Name="BtnEdit" Click="BtnEdit_Click" IsEnabled="False"/>
             <Button Content="Удалить" x:Name="BtnDelete" Click="BtnDelete_Click" IsEnabled="False"/>

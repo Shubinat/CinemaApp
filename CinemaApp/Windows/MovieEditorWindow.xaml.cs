@@ -27,9 +27,21 @@ namespace CinemaApp.Windows
         public MovieEditorWindow(Movie movie)
         {
             InitializeComponent();
-            if (ImgPoster!=null)
+            _movie = movie;
+            if (movie != null)
             {
                 BtnImage.Visibility = Visibility.Hidden;
+                TBoxName.Text = movie.Name;
+                TBoxDistributor.Text = movie.Distributor;
+                TBoxDuration.Text = movie.Duration.ToString();
+                DatePickerStart.SelectedDate = movie.StartRentalDate;
+                DatePickerEnd.SelectedDate = movie.EndRentalDate;
+                _img = movie.Poster;
+                ImgPoster.DataContext = _img;
+            }
+            else
+            {
+                BtnImage.Visibility = Visibility.Visible;
             }
         }
 
@@ -41,8 +53,8 @@ namespace CinemaApp.Windows
             {
                 try
                 {
-                    ImgPoster.Source = new BitmapImage(new Uri(ofd.FileName));
                     _img = File.ReadAllBytes(ofd.FileName);
+                    ImgPoster.DataContext = _img;
                 }
                 catch
                 {
@@ -89,8 +101,6 @@ namespace CinemaApp.Windows
                         Poster = _img,
                     };
                     App.Context.Movies.Add(_movie);
-                    App.Context.SaveChanges();
-                    
                     
                 }
                 else

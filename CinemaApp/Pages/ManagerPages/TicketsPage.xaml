@@ -42,9 +42,8 @@
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
             <Button Content="Редактировать" x:Name="BtnEdit" Click="BtnEdit_Click" IsEnabled="False"/>
-            <Button Content="Удалить" x:Name="BtnDelete" Click="BtnDelete_Click" IsEnabled="False"/>
             <Button Content="Добавить" x:Name="BtnAdd" Click="BtnAdd_Click"/>
-            <Button Content="Отчет" x:Name="BtnReport" Click="BtnReport_Click"/>
+            <Button Content="Сохранить в Excel" x:Name="BtnReport" Click="BtnReport_Click"/>
         </StackPanel>
     </Grid>
 </Page>
